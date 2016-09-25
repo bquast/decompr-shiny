@@ -5,9 +5,9 @@
 
 library(shiny)
 library(decompr)
+data(leather)
 # library(wiod)
 # data(wiod95)
-data(leather)
 
 # Define UI for application that draws a histogram
 shinyUI(fluidPage(
@@ -18,15 +18,10 @@ shinyUI(fluidPage(
   # Sidebar with a slider input for number of bins 
   sidebarLayout(
     sidebarPanel(
-       # sliderInput("bins",
-       #             "Number of bins:",
-       #             min = 1,
-       #             max = 50,
-       #             value = 30),
        selectInput("countries",
                    "Countries object:",
                    choices = ls(.GlobalEnv),
-                   selected = countries),
+                   selected = "countries"),
        selectInput("industries",
                    "Industries object:",
                    choices = ls(.GlobalEnv),
@@ -42,16 +37,16 @@ shinyUI(fluidPage(
        selectInput("output",
                    "Output object",
                    choices = ls(.GlobalEnv),
-                   selected = "output"),
+                   selected = "out"),
+       radioButtons("method", 
+                    "Decomposition method:",
+                    choices = c("Leontief" = "leontief", "Wang-Wei-Zhu" = "wwz")),
        actionButton("update","Run model")
        
     ),
     
     # Show a plot of the generated distribution
     mainPanel(
-       # plotOutput("distPlot"),
-       tableOutput("text1"),
-      
        tableOutput("decomposed")
     )
   )
