@@ -41,6 +41,9 @@ shinyUI(fluidPage(
        radioButtons("method", 
                     "Decomposition method:",
                     choices = c("Leontief" = "leontief", "Wang-Wei-Zhu" = "wwz")),
+       radioButtons("post", 
+                    "Post-multiplication (Leontief only):",
+                    choices = c("exports", "output", "final_demand", "none")),
        actionButton("update","Run model")
        
     ),

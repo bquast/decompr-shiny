@@ -22,7 +22,8 @@ shinyServer(function(input, output) {
                k = .GlobalEnv[[input$countries]],
                i = .GlobalEnv[[input$industries]],
                o = .GlobalEnv[[input$output]],
-               method = input$method)
+               method = input$method,
+               post = input$post)
       })
     }
   })
