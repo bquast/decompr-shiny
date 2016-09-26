@@ -47,13 +47,28 @@ shinyServer(function(input, output) {
   observe({
     if(input$update){
       
-      .decomposed <<- decomp(x = .GlobalEnv[[input$intermediate]],
-               y = .GlobalEnv[[input$final]],
-               k = .GlobalEnv[[input$countries]],
-               i = .GlobalEnv[[input$industries]],
-               o = .GlobalEnv[[input$output]],
-               method = input$method,
-               post = input$post)
+      var_x <- inter
+      var_y <- final
+      var_k <- countries
+      var_i <- industries
+      var_o <- out
+      
+      if (input$dataselect == "upload") {
+        var_x <- .GlobalEnv[[input$intermediate]]
+        var_y <- .GlobalEnv[[input$final]]
+        var_k <- .GlobalEnv[[input$countries]]
+        var_i <- .GlobalEnv[[input$industries]]
+        var_o <- .GlobalEnv[[input$output]]
+      } 
+      
+      .decomposed <<- decomp(
+        x = var_x,
+        y = var_y,
+        k = var_k,
+        i = var_i,
+        o = var_o,
+        method = input$method,
+        post = input$post     )
         
       output$decomposed <- renderTable({.decomposed})
     }
@@ -62,8 +77,8 @@ shinyServer(function(input, output) {
   output$downloadData <- downloadHandler(
     filename = function()
       paste(input$dataselect, '-', input$method, '.csv', sep=''),
-    content = function(file2)
-      write.csv(.decomposed, file = file2)
+    content = function(tempfile)
+      write.csv(.decomposed, file = filetemp)
   )
 
 })
