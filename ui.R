@@ -5,7 +5,7 @@
 
 library(shiny)
 library(decompr)
-data(leather)
+# data(leather)
 # library(wiod)
 # data(wiod95)
 
@@ -18,38 +18,43 @@ shinyUI(fluidPage(
   # Sidebar with a slider input for number of bins 
   sidebarLayout(
     sidebarPanel(
-       selectInput("countries",
-                   "Countries object:",
-                   choices = ls(.GlobalEnv),
-                   selected = "countries"),
-       selectInput("industries",
-                   "Industries object:",
-                   choices = ls(.GlobalEnv),
-                   selected = "industries"),
-       selectInput("intermediate",
-                   "Intermediate object:",
-                   choices = ls(.GlobalEnv),
-                   selected = "inter"),
-       selectInput("final",
-                   "Final object",
-                   choices = ls(.GlobalEnv),
-                   selected = "final"),
-       selectInput("output",
-                   "Output object",
-                   choices = ls(.GlobalEnv),
-                   selected = "out"),
+       radioButtons("dataselect", 
+                    "Select dataset:",
+                    choices = c('Example dataset "leather"' = "leather",
+                                "WIOD 1995" = "wiod95",
+                                "WIOD 2000" = "wiod00",
+                                "WIOD 2005" = "wiod05",
+                                "WIOD 2008" = "wiod08",
+                                "WIOD 2009" = "wiod09",
+                                "WIOD 2010" = "wiod10",
+                                "WIOD 2011" = "wiod11",
+                                "upload data" = "upload")),
+       conditionalPanel( condition = 'input.dataselect == "upload"',
+         fileInput("file", "Upload an RData file:"),
+         uiOutput("countries"),
+         uiOutput("industries"),
+         uiOutput("intermediate"),
+         uiOutput("final"),
+         uiOutput("output")
+       ),
+       
        radioButtons("method", 
                     "Decomposition method:",
                     choices = c("Leontief" = "leontief", "Wang-Wei-Zhu" = "wwz")),
-       radioButtons("post", 
-                    "Post-multiplication (Leontief only):",
-                    choices = c("exports", "output", "final_demand", "none")),
+       
+       conditionalPanel( condition = 'input.method == "leontief"',
+         radioButtons("post", 
+                      "Post-multiplication (Leontief only):",
+                      choices = c("exports", "output", "final_demand", "none"))
+       ),
+       
        actionButton("update","Run model")
        
     ),
     
     # Show a plot of the generated distribution
     mainPanel(
+       downloadButton('downloadData', 'Download'),
        tableOutput("decomposed")
     )
   )
