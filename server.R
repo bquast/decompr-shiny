@@ -6,7 +6,7 @@
 library(shiny)
 library(decompr)
 # data(leather)
-# library(wiod)
+library(wiod)
 # data(wiod95)
 
 
@@ -46,7 +46,7 @@ shinyServer(function(input, output) {
   observe({
     if(input$update){
       
-      decomposed <<- decomp(x = .GlobalEnv[[input$intermediate]],
+      .decomposed <<- decomp(x = .GlobalEnv[[input$intermediate]],
                y = .GlobalEnv[[input$final]],
                k = .GlobalEnv[[input$countries]],
                i = .GlobalEnv[[input$industries]],
@@ -54,7 +54,7 @@ shinyServer(function(input, output) {
                method = input$method,
                post = input$post)
         
-      output$decomposed <- renderTable({decomposed})
+      output$decomposed <- renderTable({.decomposed})
     }
   })
   
@@ -62,7 +62,7 @@ shinyServer(function(input, output) {
     filename = function()
       paste(input$dataselect, '-', input$method, '.csv', sep=''),
     content = function(file2)
-      write.csv(decomposed, file = file2)
+      write.csv(.decomposed, file = file2)
   )
 
 })
