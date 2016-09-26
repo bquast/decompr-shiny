@@ -54,7 +54,7 @@ shinyUI(fluidPage(
     
     # Show a plot of the generated distribution
     mainPanel(
-       downloadButton('downloadData', 'Download'),
+       downloadButton('downloadData', 'Download Output Data'),
        tableOutput("decomposed")
     )
   )
