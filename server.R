@@ -15,8 +15,9 @@ shinyServer(function(input, output) {
   
   # check for data upload
   observe({
-    if(!is.null(input$file)){
-      load(file = input$file$datapath)
+    inFile <- input$file
+    if(!is.null(inFile)){
+      load(file = inFile$datapath, envir = .GlobalEnv)
     } else {
       data(leather)
     }
