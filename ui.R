@@ -68,14 +68,18 @@ shinyUI(fluidPage(
                       choices = c("exports", "output", "final_demand", "none"))
        ),
        
-       actionButton("update","Run model")
+       actionButton("update","Run model"),
        
+       checkboxInput("showoutput", "Show output", value=TRUE)
     ),
     
     # Show a plot of the generated distribution
     mainPanel(
        downloadButton('downloadData', 'Download Output Data'),
-       tableOutput("decomposed")
+       
+       conditionalPanel( condition = 'input.showoutput == true',
+         tableOutput("decomposed")
+       ) 
     )
   )
 ))
