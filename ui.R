@@ -12,6 +12,9 @@ library(decompr)
 # Define UI for application that draws a histogram
 shinyUI(fluidPage(
   
+  # Google Analytics
+  tags$head(includeScript("google-analytics.js")),
+  
   # Application title
   titlePanel("decompr: GVC decomposition"),
   
