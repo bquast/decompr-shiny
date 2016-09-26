@@ -80,7 +80,7 @@ shinyServer(function(input, output) {
     filename = function()
       paste(input$dataselect, '-', input$method, '.csv', sep=''),
     content = function(tempfile)
-      write.csv(.decomposed, file = filetemp)
+      write.csv(.decomposed, file = tempfile)
   )
 
 })
