@@ -29,13 +29,13 @@ shinyUI(fluidPage(
                                 "upload data" = "upload")),
        conditionalPanel( condition = 'input.dataselect == "wiod"',
                          selectInput("wiodselect", "Choose year for WIOD:",
-                                     choices = c("WIOD 1995" = "wiod95",
-                                                 "WIOD 2000" = "wiod00",
-                                                 "WIOD 2005" = "wiod05",
-                                                 "WIOD 2008" = "wiod08",
-                                                 "WIOD 2009" = "wiod09",
-                                                 "WIOD 2010" = "wiod10",
-                                                 "WIOD 2011" = "wiod11") )
+                                     choices = c("WIOD 1995" = "95",
+                                                 "WIOD 2000" = "00",
+                                                 "WIOD 2005" = "05",
+                                                 "WIOD 2008" = "08",
+                                                 "WIOD 2009" = "09",
+                                                 "WIOD 2010" = "10",
+                                                 "WIOD 2011" = "11") )
        ),
        
        conditionalPanel( condition = 'input.dataselect == "tiva"',
