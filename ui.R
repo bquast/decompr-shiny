@@ -6,8 +6,8 @@
 library(shiny)
 library(decompr)
 # data(leather)
-# library(wiod)
-# data(wiod95)
+library(wiod)
+
 
 # Define UI for application that draws a histogram
 shinyUI(fluidPage(
@@ -70,7 +70,10 @@ shinyUI(fluidPage(
        
        actionButton("update","Run model"),
        
-       checkboxInput("showoutput", "Show output", value=TRUE)
+       checkboxInput("showoutput", "Show output", value=TRUE),
+       
+       h6('© 2016 Bastiaan Quast.'),
+       h6("Built using decompr, please cite: Quast & Kummritz 2015")
     ),
     
     # Show a plot of the generated distribution
