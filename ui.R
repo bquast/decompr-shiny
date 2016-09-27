@@ -72,8 +72,10 @@ shinyUI(fluidPage(
        
        checkboxInput("showoutput", "Show output", value=TRUE),
        
-       h6('© 2016 Bastiaan Quast.'),
-       h6("Built using decompr, please cite: Quast & Kummritz 2015")
+       a("© 2016 Bastiaan Quast", href="http://qua.st/", target="_blank"),
+       h5(' '),
+       a("Built using decompr, ", href="http://qua.st/decompr/", target="_blank"),
+       a("please cite: Quast & Kummritz 2015", href="https://ideas.repec.org/p/gii/cteiwp/ctei-2015-01.html", target="_blank")
     ),
     
     # Show a plot of the generated distribution
