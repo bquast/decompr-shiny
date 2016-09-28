@@ -45,7 +45,9 @@ shinyServer(function(input, output) {
   })
   
   observeEvent(input$update, {
-      
+    
+    withProgress(message = 'Decomposing selected data', value = 0, {
+    
       if (input$dataselect == "upload") {
         .decomposed <<- decomp(x = .GlobalEnv[[input$intermediate]],
                                y = .GlobalEnv[[input$final]],
@@ -73,8 +75,10 @@ shinyServer(function(input, output) {
                                method = input$method,
                                post = input$post)
       }
+    })
 
       output$decomposed <- renderTable({.decomposed})
+    
     }
   )
   
@@ -84,5 +88,5 @@ shinyServer(function(input, output) {
     content = function(tempfile)
       write.csv(.decomposed, file = tempfile)
   )
-
+  
 })
