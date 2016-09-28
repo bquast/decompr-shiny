@@ -5,7 +5,7 @@
 
 library(shiny)
 library(decompr)
-# data(leather)
+data(leather)
 library(wiod)
 # data(wiod95)
 
@@ -44,15 +44,7 @@ shinyServer(function(input, output) {
     })
   })
   
-  observe({
-    if(input$update){
-      
-      var_x <- inter
-      var_y <- final
-      var_k <- countries
-      var_i <- industries
-      var_o <- out
-      
+  observeEvent(input$update, {
       
       if (input$dataselect == "upload") {
         .decomposed <<- decomp(x = .GlobalEnv[[input$intermediate]],
@@ -84,7 +76,7 @@ shinyServer(function(input, output) {
 
       output$decomposed <- renderTable({.decomposed})
     }
-  })
+  )
   
   output$downloadData <- downloadHandler(
     filename = function()
