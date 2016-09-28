@@ -62,7 +62,17 @@ shinyServer(function(input, output) {
                                o = .GlobalEnv[[input$output]],
                                method = input$method,
                                post = input$post)
+      } else if (input$dataselect == "wiod") {
+        data(wiod95regional)
+        .decomposed <<- decomp(x = inter_reg95,
+                               y = final_reg95,
+                               k = regions,
+                               i = industries,
+                               o = output_reg95,
+                               method = input$method,
+                               post = input$post)
       } else {
+        data(leather)
         .decomposed <<- decomp(x = inter,
                                y = final,
                                k = countries,
